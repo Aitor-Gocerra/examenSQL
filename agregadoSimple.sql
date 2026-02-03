@@ -8,3 +8,4 @@ INNER JOIN Empleados ON Empleados.id_departamento = Departamentos.id
 GROUP BY Departamentos.nombre
 HAVING AVG(empleados.salario) > 2000
 ORDER BY promedio DESC;
+
