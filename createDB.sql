@@ -61,3 +61,50 @@ INSERT INTO Mentorias VALUES
 (5, 4, 'Java'),      -- Ana aprende de David
 (6, 4, 'SQL'),       -- Luis aprende de David
 (2, 1, 'Gestión');   -- Carlos aprende de Sofia
+
+
+-- 4. Tabla PROYECTOS
+CREATE TABLE Proyectos (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50),
+    presupuesto DECIMAL(12, 2),
+    fecha_inicio DATE,
+    estado VARCHAR(20) -- 'Activo', 'Finalizado', 'Planificacion'
+);
+
+-- 5. Tabla ASIGNACIONES (Relación N:M Empleados-Proyectos)
+CREATE TABLE Asignaciones (
+    id_proyecto INT,
+    id_empleado INT,
+    horas_totales INT, -- Horas que el empleado ha dedicado
+    PRIMARY KEY (id_proyecto, id_empleado),
+    FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id)
+);
+
+-- DATOS DE PROYECTOS
+INSERT INTO Proyectos VALUES
+(100, 'Migración Cloud', 50000.00, '2023-01-15', 'Finalizado'),
+(101, 'Nuevo CRM', 120000.00, '2023-06-01', 'Activo'),
+(102, 'App Móvil', 30000.00, '2023-09-01', 'Activo'),
+(103, 'Auditoría Interna', 5000.00, '2024-01-10', 'Planificacion'),
+(104, 'Web Corporativa', 15000.00, '2022-01-01', 'Finalizado');
+
+-- DATOS DE ASIGNACIONES
+-- David (4) trabaja mucho en el CRM y la App
+INSERT INTO Asignaciones VALUES (101, 4, 120);
+INSERT INTO Asignaciones VALUES (102, 4, 40);
+
+-- Ana (5) está en la App Móvil y aprendiendo en Migración
+INSERT INTO Asignaciones VALUES (102, 5, 80);
+INSERT INTO Asignaciones VALUES (100, 5, 20);
+
+-- Luis (6) el becario ayuda en la App
+INSERT INTO Asignaciones VALUES (102, 6, 150); -- ¡El becario trabaja más horas!
+
+-- Maria (7) y Jorge (8) están en el CRM (Ventas)
+INSERT INTO Asignaciones VALUES (101, 7, 50);
+INSERT INTO Asignaciones VALUES (101, 8, 45);
+
+-- Carlos (2) supervisa la Migración
+INSERT INTO Asignaciones VALUES (100, 2, 10);
