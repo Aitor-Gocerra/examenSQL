@@ -5,7 +5,5 @@ SELECT Empleados.nombre, Empleados.puesto, Empleados.salario
 FROM Empleados
 WHERE salario > (
     SELECT AVG(Empleados.salario),
-    FROM Empleados;
+    FROM Empleados
 );
-
---  No entiendo porque esta consulta me da error

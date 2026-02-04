@@ -2,10 +2,10 @@
 que el salario promedio DE SU PROPIO DEPARTAMENTO. 
 (Pista: La subconsulta debe conectarse con la tabla de fuera). */
 
-SELECT
-FROM Empleados
+SELECT nombre, salario
+FROM Empleados AS Emple1
 WHERE salario > (
-    SELECT AVG(Empleados.salario)
-    FROM Empleados
-    WHERE Empleados -- Como comparo aqui?¿
-)
+    SELECT AVG(Emple2.salario)
+    FROM Empleados AS Emple2
+    WHERE Emple1.id_departamento = Emple2.id_departamento
+);
