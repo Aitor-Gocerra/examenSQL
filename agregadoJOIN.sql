@@ -17,3 +17,31 @@ INNER JOIN Empleados E ON E.id = A.id_empleado
 GROUP BY P.id
 HAVING SUM(horas_totales)
 ORDER BY horas_totales DESC
+
+
+/* "Departamentos de Ventas Fuertes" 
+Muestra el nombre de los departamentos que tienen más de un empleado 
+cuyo puesto sea exactamente 'Comercial'. 
+Reto: Tienes que filtrar a los empleados por su puesto antes de 
+contar cuántos quedan en el departamento. */
+
+SELECT Departamentos.nombre, COUNT(E.id) as num_comerciales
+FROM Departamentos
+INNER JOIN Empleados E ON E.id_departamento = Departamentos.id
+WHERE E.puesto = 'Comercial'
+GROUP BY Departamentos.nombre
+HAVING COUNT(e.id) > 1;
+
+/* "Proyectos Multidisciplinares" 
+Muestra el nombre de los proyectos en los que colaboran empleados 
+de al menos 2 departamentos diferentes. 
+Reto: Necesitas unir Proyectos -> Asignaciones -> Empleados -> Departamentos 
+y luego contar cuántos departamentos únicos hay por proyecto. */
+
+SELECT P.nombre, D.nombre
+FROM Proyectos P
+INNER JOIN Asignaciones A ON A.id_proyecto = P.id
+INNER JOIN Empleados E ON E.id = A.id_empleado
+INNER JOIN Departamentos D ON D.id = E.id_departamento
+GROUP BY P.id, D.id
+HAVING COUNT(DISTINCT D.id) >= 2
