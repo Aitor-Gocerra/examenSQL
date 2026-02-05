@@ -45,12 +45,3 @@ INNER JOIN Empleados E ON E.id = A.id_empleado
 INNER JOIN Departamentos D ON D.id = E.id_departamento
 GROUP BY P.id, P.nombre
 HAVING COUNT(DISTINCT E.id) >= 2
-
-
-SELECT 
-    p.nombre
-FROM Proyectos p
-JOIN Asignaciones a ON p.id = a.id_proyecto
-JOIN Empleados e ON a.id_empleado = e.id
-GROUP BY p.id, p.nombre
-HAVING COUNT(DISTINCT e.id_departamento) >= 2; -- ¡La clave!
