@@ -42,4 +42,3 @@ INNER JOIN Empleados E ON E.id = A.id_empleado
 INNER JOIN Departamentos D ON D.id = E.id_departamento
 GROUP BY P.id, P.nombre
 HAVING COUNT(DISTINCT E.id) >= 2
-
