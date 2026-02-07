@@ -21,9 +21,7 @@ ORDER BY horas_totales DESC
 
 /* "Departamentos de Ventas Fuertes" 
 Muestra el nombre de los departamentos que tienen más de un empleado 
-cuyo puesto sea exactamente 'Comercial'. 
-Reto: Tienes que filtrar a los empleados por su puesto antes de 
-contar cuántos quedan en el departamento. */
+cuyo puesto sea exactamente 'Comercial'. */
 
 SELECT Departamentos.nombre, COUNT(E.id) as num_comerciales
 FROM Departamentos
@@ -34,9 +32,8 @@ HAVING COUNT(e.id) > 1;
 
 /* "Proyectos Multidisciplinares" 
 Muestra el nombre de los proyectos en los que colaboran empleados 
-de al menos 2 departamentos diferentes. 
-Reto: Necesitas unir Proyectos -> Asignaciones -> Empleados -> Departamentos 
-y luego contar cuántos departamentos únicos hay por proyecto. */
+de al menos 2 departamentos diferentes. */
+
 
 SELECT P.nombre, D.nombre
 FROM Proyectos P
@@ -46,11 +43,3 @@ INNER JOIN Departamentos D ON D.id = E.id_departamento
 GROUP BY P.id, P.nombre
 HAVING COUNT(DISTINCT E.id) >= 2
 
-
-SELECT 
-    p.nombre
-FROM Proyectos p
-JOIN Asignaciones a ON p.id = a.id_proyecto
-JOIN Empleados e ON a.id_empleado = e.id
-GROUP BY p.id, p.nombre
-HAVING COUNT(DISTINCT e.id_departamento) >= 2; -- ¡La clave!
